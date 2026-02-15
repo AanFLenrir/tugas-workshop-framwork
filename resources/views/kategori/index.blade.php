@@ -1,29 +1,53 @@
 @extends('layouts.app')
 
-@section('title', 'Kategori')
-
-@section('style-page')
-<style>
-    .judul {
-        font-weight: bold;
-    }
-</style>
-@endsection
-
 @section('content')
-<h3 class="judul">Data Kategori</h3>
 
-<table class="table table-bordered">
-    @foreach($kategori as $k)
-        <tr>
-            <td>{{ $k->nama_kategori }}</td>
-        </tr>
-    @endforeach
-</table>
-@endsection
+<div class="page-header">
+    <h3 class="page-title"> Data Kategori </h3>
+</div>
 
-@section('js-page')
-<script>
-    console.log("Halaman kategori aktif");
-</script>
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+
+        <div class="card">
+
+            <div class="card-body">
+
+                <h4 class="card-title">Daftar Kategori</h4>
+
+                <div class="table-responsive">
+
+                    <table class="table table-striped">
+
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Kategori</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            @foreach($data as $index => $k)
+
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $k->nama_kategori }}</td>
+                                </tr>
+
+                            @endforeach
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
 @endsection

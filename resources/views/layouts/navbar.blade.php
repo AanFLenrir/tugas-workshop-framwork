@@ -1,24 +1,93 @@
-<nav class="navbar navbar-default col-lg-12 col-12 p-0 fixed-top d-flex">
-    <div class="text-center navbar-brand-wrapper">
-        <a class="navbar-brand brand-logo" href="#">KOLEKSI BUKU</a>
+<nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+
+    <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
+        <a class="navbar-brand brand-logo" href="#">
+            <img src="{{ asset('assets/images/logo.svg') }}" alt="logo" />
+        </a>
+        <a class="navbar-brand brand-logo-mini" href="#">
+            <img src="{{ asset('assets/images/logo-mini.svg') }}" alt="logo" />
+        </a>
     </div>
 
-    <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-            <a class="nav-link">
-                {{ Auth::user()->name }}
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('logout') }}"
-               onclick="event.preventDefault();
-               document.getElementById('logout-form').submit();">
-                Logout
-            </a>
+    <div class="navbar-menu-wrapper d-flex align-items-stretch">
 
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                @csrf
+        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+            <span class="mdi mdi-menu"></span>
+        </button>
+
+        <div class="search-field d-none d-md-block">
+            <form class="d-flex align-items-center h-100">
+                <div class="input-group">
+                    <div class="input-group-prepend bg-transparent">
+                        <i class="input-group-text border-0 mdi mdi-magnify"></i>
+                    </div>
+                    <input type="text" class="form-control bg-transparent border-0" placeholder="Search projects">
+                </div>
             </form>
-        </li>
-    </ul>
+        </div>
+
+        <ul class="navbar-nav navbar-nav-right">
+
+            {{-- BELUM LOGIN --}}
+            @guest
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('login') }}">Login</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('register') }}">Register</a>
+                </li>
+            @endguest
+
+
+            {{-- PROFILE USER --}}
+            <li class="nav-item nav-profile dropdown">
+
+                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+
+                    <div class="nav-profile-img">
+                        <img src="{{ asset('assets/images/faces/face1.jpg') }}" alt="image">
+                        <span class="availability-status online"></span>
+                    </div>
+
+                    <div class="nav-profile-text">
+
+                        {{-- NAMA USER --}}
+                        <p class="mb-1 text-black">
+                            @auth
+                                {{ auth()->user()->name }}
+                            @else
+                                Guest
+                            @endauth
+                        </p>
+
+                    </div>
+
+                </a>
+
+                {{-- DROPDOWN --}}
+                <div class="dropdown-menu navbar-dropdown">
+
+                    @auth
+                        <a class="dropdown-item"
+                           href="#"
+                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+
+                            <i class="mdi mdi-logout me-2 text-primary"></i>
+                            Logout
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display:none;">
+                            @csrf
+                        </form>
+                    @endauth
+
+                </div>
+
+            </li>
+
+        </ul>
+
+    </div>
+
 </nav>
