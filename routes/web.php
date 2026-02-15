@@ -70,3 +70,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/buku', [BukuController::class,'index']);
 
 });
+
+//hi
